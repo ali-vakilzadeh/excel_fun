@@ -1,0 +1,30 @@
+{
+"name": "Project",
+"outline_level": 0,
+"children": [
+{
+"name": "Phase 1",
+"outline_level": 1,
+"children": [
+{"name": "Task 1",
+ "outline_level": 2
+   },
+{"name": "Task 2",
+ "outline_level": 2
+   }
+]
+},
+{
+"name": "Phase 2",
+"outline_level": 2,
+"children": [
+{"name": "Task 3",
+ "outline_level": 2
+    },
+{"name": "Task 4",
+ "outline_level": 2
+    }
+]
+}
+]
+}
