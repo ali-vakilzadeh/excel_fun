@@ -13,7 +13,6 @@ KeyShift instantly fixes mistyped text when you forget to switch between Persian
 
 ## ⚡ How to Use
 
-- **Instant Shortcut**: Press `Alt + Shift + X` while typing in any text box or after selecting text.
 - **Floating Button**: Click the small floating icon that appears inside active inputs.
-- **Context Menu**: Right-click on any text -> Select *"🔄 Convert Keyboard Layout (FA ↔ EN)"*.
+- **Context Menu**: Right-click on any text -> Select *"🔄 Convert Keyboard Layout (?? ↔ EN)"*.
 - **Toolbar Icon**: Click the KeyShift icon in your Chrome toolbar to convert or switch language pairs.
