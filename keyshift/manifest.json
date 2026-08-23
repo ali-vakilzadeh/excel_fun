@@ -1,0 +1,49 @@
+{
+  "manifest_version": 3,
+  "name": "KeyShift - Bilingual Layout Switcher",
+  "version": "1.0.0",
+  "description": "Instantly convert mistyped text between Persian (Farsi), Arabic, Russian, and English layouts in any text box.",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "KeyShift - Convert Keyboard Layout",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["mappings.js", "content.js"],
+      "css": ["styles.css"],
+      "all_frames": true,
+      "run_at": "document_end"
+    }
+  ],
+  "commands": {
+    "convert-layout": {
+      "suggested_key": {
+        "default": "Alt+Shift+X",
+        "mac": "Alt+Shift+X"
+      },
+      "description": "Convert mistyped keyboard layout in active text field"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
