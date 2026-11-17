@@ -95,11 +95,12 @@
         return;
       }
 
-      var input = document.createElement("input");
+      var isNum = nextType === "number";
+      var input = document.createElement(isNum ? "input" : "textarea");
       input.id = "jte-scalar-value";
-      input.className = "jte-value-input";
-      input.type = nextType === "number" ? "number" : "text";
-      input.step = "any";
+      if (isNum) { input.type = "number"; input.step = "any"; }
+      else JTE.TextField.enhance(input);
+      input.className += " jte-value-input";
       input.value = current === null || current === undefined ? "" : String(current);
 
       // Commit on blur or Enter; number validity is checked at commit time.
@@ -122,7 +123,7 @@
 
       input.addEventListener("blur", commit);
       input.addEventListener("keydown", function (e) {
-        if (e.key === "Enter") { e.preventDefault(); input.blur(); }
+        if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); input.blur(); }
         else if (e.key === "Escape") {
           input.value = current === null || current === undefined ? "" : String(current);
           input.blur();

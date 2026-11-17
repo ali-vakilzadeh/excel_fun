@@ -84,11 +84,16 @@
     thIndex.className = "jte-grid-index";
     thIndex.textContent = "#";
     headRow.appendChild(thIndex);
+    var ths = [];
     columns.forEach(function (col) {
       var th = document.createElement("th");
       th.textContent = col;
       th.title = col;
+      var grip = document.createElement("span");
+      grip.className = "jte-col-grip";
+      th.appendChild(grip);
       headRow.appendChild(th);
+      ths.push(th);
     });
     var thAct = document.createElement("th");
     thAct.className = "jte-grid-actions";
@@ -148,10 +153,11 @@
           td.appendChild(openBtn);
           td.classList.add("jte-cell-nested");
         } else {
-          var input = document.createElement("input");
-          input.type = typeof v === "number" ? "number" : "text";
-          input.step = "any";
-          input.className = "jte-cell-input";
+          var isNum = typeof v === "number";
+          var input = document.createElement(isNum ? "input" : "textarea");
+          if (isNum) { input.type = "number"; input.step = "any"; }
+          else JTE.TextField.enhance(input);
+          input.className += " jte-cell-input";
           input.value = v === null || v === undefined ? "" : String(v);
           if (v === null || v === undefined) {
             input.placeholder = has ? "null" : "(missing)";
@@ -161,7 +167,7 @@
             commitCell(rowIndex, col, v, has, input);
           });
           input.addEventListener("keydown", function (e) {
-            if (e.key === "Enter") { e.preventDefault(); input.blur(); }
+            if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); input.blur(); }
             else if (e.key === "Escape") {
               input.value = v === null || v === undefined ? "" : String(v);
               input.blur();
@@ -232,6 +238,62 @@
     }
 
     renderBody();
+
+    // --- Column resizing ------------------------------------------------------
+    // Freeze the auto-computed widths into a <colgroup>, then let the user
+    // drag the grip at the right edge of each header to change them.
+    var colEls = [];
+    var fixedCols = [];  // [index col, ...data cols, actions col]
+    (function setupResize() {
+      var colgroup = document.createElement("colgroup");
+      var widths = [thIndex.offsetWidth || 48];
+      ths.forEach(function (th) {
+        widths.push(Math.min(Math.max(th.offsetWidth || 0, 120), 360));
+      });
+      widths.push(thAct.offsetWidth || 40);
+      widths.forEach(function (w) {
+        var c = document.createElement("col");
+        c.style.width = w + "px";
+        colgroup.appendChild(c);
+        colEls.push(c);
+        fixedCols.push(w);
+      });
+      table.insertBefore(colgroup, thead);
+      table.style.tableLayout = "fixed";
+      applyTableWidth();
+    })();
+
+    function applyTableWidth() {
+      var sum = 0;
+      fixedCols.forEach(function (w) { sum += w; });
+      table.style.width = sum + "px";
+    }
+
+    ths.forEach(function (th, i) {
+      var grip = th.querySelector(".jte-col-grip");
+      var idx = i + 1; // offset by the index column
+      grip.addEventListener("pointerdown", function (e) {
+        e.preventDefault();
+        grip.setPointerCapture(e.pointerId);
+        var startX = e.clientX, startW = fixedCols[idx];
+        grip.classList.add("jte-col-grip-active");
+        function move(ev) {
+          var w = Math.max(60, startW + ev.clientX - startX);
+          fixedCols[idx] = w;
+          colEls[idx].style.width = w + "px";
+          applyTableWidth();
+        }
+        function up() {
+          grip.classList.remove("jte-col-grip-active");
+          grip.removeEventListener("pointermove", move);
+          grip.removeEventListener("pointerup", up);
+          grip.removeEventListener("pointercancel", up);
+        }
+        grip.addEventListener("pointermove", move);
+        grip.addEventListener("pointerup", up);
+        grip.addEventListener("pointercancel", up);
+      });
+    });
 
     // Re-render body if data changes within this array.
     var off = JTE.State.on("data:changed", function (p) {

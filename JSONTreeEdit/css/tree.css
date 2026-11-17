@@ -85,6 +85,11 @@
   display: block;
 }
 
+/* Collapsed nodes hide their children */
+.jte-node:not(.jte-expanded) > .jte-children {
+  display: none;
+}
+
 .jte-node.jte-hidden,
 .jte-node.jte-hidden > .jte-row {
   display: none;

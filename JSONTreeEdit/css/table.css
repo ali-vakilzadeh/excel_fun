@@ -215,6 +215,31 @@
   border-bottom: 1px solid var(--jte-border-strong);
 }
 
+.jte-grid thead th { overflow: hidden; text-overflow: ellipsis; }
+
+.jte-col-grip {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 6px;
+  cursor: col-resize;
+  touch-action: none;
+}
+.jte-col-grip:hover,
+.jte-col-grip-active { background: var(--jte-accent); opacity: 0.6; }
+
+.jte-grid { max-width: none; }
+
+.jte-autogrow {
+  display: block;
+  resize: none;
+  overflow: hidden;
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
+.jte-autogrow:not(:focus) { white-space: pre; }
+
 .jte-grid-index {
   width: 3em;
   text-align: right;
@@ -247,12 +272,11 @@
 
 .jte-grid-cell {
   padding: 0 !important;
-  min-width: 80px;
 }
 
 .jte-cell-input {
   width: 100%;
-  min-width: 60px;
+  min-width: 0;
   padding: var(--jte-space-2) var(--jte-space-3);
   border: 1px solid transparent;
   border-radius: 0;

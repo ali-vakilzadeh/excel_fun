@@ -108,6 +108,7 @@
           if (e.key === "Enter") { e.preventDefault(); keyInput.blur(); }
           else if (e.key === "Escape") { keyInput.value = String(entry.key); keyInput.blur(); }
         });
+        keyInput.addEventListener("mouseenter", function () { keyInput.title = keyInput.value; });
         tdKey.appendChild(keyInput);
       }
       tr.appendChild(tdKey);
@@ -131,10 +132,11 @@
         });
         tdVal.appendChild(openBtn);
       } else {
-        var input = document.createElement("input");
-        input.type = typeof entry.value === "number" ? "number" : "text";
-        input.step = "any";
-        input.className = "jte-value-input jte-value-inline";
+        var isNum = typeof entry.value === "number";
+        var input = document.createElement(isNum ? "input" : "textarea");
+        if (isNum) { input.type = "number"; input.step = "any"; }
+        else JTE.TextField.enhance(input);
+        input.className += " jte-value-input jte-value-inline";
         input.value = entry.value === null ? "" : String(entry.value);
         if (entry.value === null) {
           input.placeholder = "null";
@@ -144,7 +146,7 @@
           commitValue(entry.key, entry.value, input);
         });
         input.addEventListener("keydown", function (e) {
-          if (e.key === "Enter") { e.preventDefault(); input.blur(); }
+          if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); input.blur(); }
           else if (e.key === "Escape") {
             input.value = entry.value === null ? "" : String(entry.value);
             input.blur();
