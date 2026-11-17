@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Tree Editor</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/tree.css">
+  <link rel="stylesheet" href="css/table.css">
+</head>
+<body>
+  <header id="toolbar"></header>
+  <div id="search-bar-host" class="jte-search-bar-host"></div>
+  <main id="app">
+    <aside id="tree-pane"></aside>
+    <div id="splitter" role="separator" aria-orientation="vertical"></div>
+    <section id="detail-pane"></section>
+  </main>
+  <div id="toast-container" aria-live="polite"></div>
+
+  <!-- Data model -->
+  <script src="js/state.js"></script>
+  <script src="js/tree/tree-path.js"></script>
+
+  <!-- I/O -->
+  <script src="js/io/validator.js"></script>
+  <script src="js/io/loader.js"></script>
+  <script src="js/io/saver.js"></script>
+
+  <!-- Tree -->
+  <script src="js/tree/tree-search.js"></script>
+  <script src="js/tree/tree-view.js"></script>
+
+  <!-- Right pane -->
+  <script src="js/pane/scalar-editor.js"></script>
+  <script src="js/pane/object-view.js"></script>
+  <script src="js/table/detect.js"></script>
+  <script src="js/table/table-edit.js"></script>
+  <script src="js/table/table-view.js"></script>
+  <script src="js/pane/detail-view.js"></script>
+
+  <!-- UI chrome -->
+  <script src="js/ui/toast.js"></script>
+  <script src="js/ui/splitter.js"></script>
+  <script src="js/ui/search-bar.js"></script>
+  <script src="js/ui/toolbar.js"></script>
+
+  <!-- Bootstrap (last) -->
+  <script src="js/app.js"></script>
+</body>
+</html>
