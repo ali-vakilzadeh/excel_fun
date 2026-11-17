@@ -1,0 +1,117 @@
+/* css/tree.css — Key tree (left pane) */
+
+.jte-tree-pane {
+  font-family: var(--jte-font-mono);
+  font-size: var(--jte-font-size-sm);
+  user-select: none;
+  outline: none;
+}
+
+.jte-tree-root {
+  display: block;
+  padding-bottom: var(--jte-space-6);
+}
+
+.jte-node {
+  position: relative;
+  display: block;
+}
+
+.jte-row {
+  display: flex;
+  align-items: center;
+  height: var(--jte-row-height);
+  padding-right: var(--jte-space-4);
+  cursor: default;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.jte-row:hover {
+  background: var(--jte-bg-hover);
+}
+
+.jte-node.jte-selected > .jte-row {
+  background: var(--jte-bg-selected);
+  border-color: var(--jte-accent);
+}
+
+.jte-node.jte-selected > .jte-row .jte-label {
+  font-weight: 600;
+}
+
+/* Chevron: rotates 90deg when expanded */
+.jte-chevron {
+  display: inline-block;
+  width: 14px;
+  flex: 0 0 14px;
+  text-align: center;
+  color: var(--jte-fg-muted);
+  font-size: 10px;
+  line-height: 1;
+  transition: transform 120ms ease;
+  cursor: pointer;
+}
+
+.jte-node.jte-expanded > .jte-row > .jte-chevron {
+  transform: rotate(90deg);
+}
+
+.jte-chevron-empty {
+  visibility: hidden;
+}
+
+.jte-label-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--jte-space-2);
+  min-width: 0;
+  overflow: hidden;
+}
+
+.jte-label {
+  color: var(--jte-fg);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.jte-meta {
+  color: var(--jte-fg-dim);
+  font-size: var(--jte-font-size-sm);
+}
+
+/* Children list: collapsed by default via .jte-hidden on <li> */
+.jte-children {
+  display: block;
+}
+
+.jte-node.jte-hidden,
+.jte-node.jte-hidden > .jte-row {
+  display: none;
+}
+
+.jte-node.jte-filtered-out {
+  display: none;
+}
+
+/* Search highlight */
+.jte-node.jte-search-hit > .jte-row {
+  background: rgba(255, 230, 120, 0.55);
+}
+
+.jte-node.jte-search-hit > .jte-row .jte-label {
+  font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+  .jte-node.jte-search-hit > .jte-row {
+    background: rgba(255, 210, 80, 0.22);
+  }
+}
+
+/* Tree-empty message */
+.jte-tree-pane .jte-empty {
+  padding: var(--jte-space-6);
+  font-family: system-ui, sans-serif;
+  font-size: var(--jte-font-size-sm);
+}

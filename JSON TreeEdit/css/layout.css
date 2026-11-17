@@ -1,0 +1,333 @@
+/* css/layout.css — App shell, toolbar, splitter, toasts, menu */
+
+body {
+  background: var(--jte-bg);
+  color: var(--jte-fg);
+  overflow: hidden; /* each pane scrolls independently */
+}
+
+/* ---------- Toolbar ---------- */
+
+#toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--jte-space-4);
+  flex-wrap: wrap;
+  height: var(--jte-toolbar-height);
+  padding: 0 var(--jte-space-6);
+  border-bottom: 1px solid var(--jte-border);
+  background: var(--jte-bg-header);
+  position: relative;
+  z-index: 10;
+}
+
+.jte-toolbar-brand {
+  display: flex;
+  align-items: baseline;
+  gap: var(--jte-space-3);
+  margin-right: var(--jte-space-6);
+  min-width: 0;
+}
+
+.jte-toolbar-title {
+  font-weight: 600;
+  font-size: var(--jte-font-size-lg);
+  white-space: nowrap;
+}
+
+.jte-toolbar-file {
+  font-family: var(--jte-font-mono);
+  font-size: var(--jte-font-size-sm);
+  color: var(--jte-fg-muted);
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jte-toolbar-dirty {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--jte-warn);
+  display: inline-block;
+  align-self: center;
+}
+
+.jte-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--jte-space-2);
+  flex-wrap: wrap;
+}
+
+.jte-toolbar-search {
+  display: flex;
+  align-items: center;
+  gap: var(--jte-space-2);
+  margin-left: auto;
+  position: relative;
+}
+
+.jte-search-icon {
+  position: absolute;
+  left: 6px;
+  color: var(--jte-fg-dim);
+  pointer-events: none;
+}
+
+.jte-search-input {
+  width: 200px;
+  padding-left: 22px;
+  font-size: var(--jte-font-size-sm);
+}
+
+.jte-search-count {
+  font-size: var(--jte-font-size-sm);
+  color: var(--jte-fg-muted);
+  min-width: 3em;
+  text-align: right;
+}
+
+.jte-search-clear {
+  color: var(--jte-fg-muted);
+}
+
+/* ---------- Buttons ---------- */
+
+.jte-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  border: 1px solid var(--jte-border-strong);
+  border-radius: var(--jte-radius);
+  background: var(--jte-bg);
+  color: var(--jte-fg);
+  font-size: var(--jte-font-size-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 120ms, border-color 120ms;
+}
+.jte-btn:hover:not(:disabled) { background: var(--jte-bg-hover); }
+.jte-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.jte-btn-primary {
+  background: var(--jte-accent);
+  border-color: var(--jte-accent);
+  color: var(--jte-accent-fg);
+}
+.jte-btn-primary:hover:not(:disabled) { background: var(--jte-accent-hover); border-color: var(--jte-accent-hover); }
+
+.jte-btn-small { padding: 3px 8px; font-size: var(--jte-font-size-sm); }
+.jte-btn-tiny  { padding: 1px 6px; font-size: var(--jte-font-size-sm); }
+
+.jte-btn-danger { color: var(--jte-danger); border-color: var(--jte-danger); }
+.jte-btn-danger:hover:not(:disabled) { background: var(--jte-danger); color: #fff; }
+
+/* ---------- Sample dropdown ---------- */
+
+.jte-sample-wrap { position: relative; display: inline-block; }
+
+.jte-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 180px;
+  background: var(--jte-bg);
+  border: 1px solid var(--jte-border-strong);
+  border-radius: var(--jte-radius);
+  box-shadow: var(--jte-shadow);
+  padding: var(--jte-space-2) 0;
+  z-index: 20;
+}
+
+.jte-menu-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: var(--jte-space-2) var(--jte-space-5);
+  font-size: var(--jte-font-size-sm);
+  cursor: pointer;
+}
+.jte-menu-item:hover { background: var(--jte-bg-hover); }
+
+.jte-hidden-input { display: none; }
+
+/* ---------- Search bar (expanded panel) ---------- */
+
+.jte-search-bar-host {
+  position: relative;
+  z-index: 9;
+}
+
+.jte-search-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--jte-space-3);
+  padding: var(--jte-space-3) var(--jte-space-6);
+  background: var(--jte-bg-alt);
+  border-bottom: 1px solid var(--jte-border);
+}
+
+.jte-search-bar-label {
+  font-size: var(--jte-font-size-sm);
+  color: var(--jte-fg-muted);
+  white-space: nowrap;
+}
+
+.jte-search-bar-input {
+  flex: 1;
+  max-width: 400px;
+  font-size: var(--jte-font-size-sm);
+}
+
+.jte-search-bar-count {
+  font-family: var(--jte-font-mono);
+  font-size: var(--jte-font-size-sm);
+  color: var(--jte-fg-muted);
+  min-width: 5em;
+  text-align: center;
+}
+
+/* ---------- Main grid ---------- */
+
+#app {
+  display: grid;
+  grid-template-columns: 32% var(--jte-splitter-width) 1fr;
+  height: calc(100vh - var(--jte-toolbar-height));
+  min-height: 0;
+}
+
+#tree-pane,
+#detail-pane {
+  overflow: auto;
+  min-width: 0;
+  min-height: 0;
+  padding: var(--jte-space-3) 0;
+  background: var(--jte-bg);
+}
+
+#detail-pane {
+  padding: var(--jte-space-5) var(--jte-space-6);
+}
+
+/* ---------- Splitter ---------- */
+
+#splitter {
+  background: var(--jte-border);
+  cursor: col-resize;
+  transition: background 120ms;
+  position: relative;
+  z-index: 5;
+}
+#splitter:hover,
+#splitter.jte-splitter-active {
+  background: var(--jte-accent);
+}
+#splitter:focus-visible {
+  outline: 2px solid var(--jte-accent);
+  outline-offset: -2px;
+}
+
+body.jte-resizing {
+  cursor: col-resize;
+  user-select: none;
+}
+
+/* ---------- Toasts ---------- */
+
+.jte-toast-container {
+  position: fixed;
+  bottom: var(--jte-space-6);
+  right: var(--jte-space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--jte-space-3);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.jte-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--jte-space-3);
+  min-width: 260px;
+  max-width: 420px;
+  padding: var(--jte-space-4) var(--jte-space-5);
+  border-radius: var(--jte-radius);
+  border-left: 4px solid var(--jte-fg-dim);
+  background: var(--jte-bg);
+  box-shadow: var(--jte-shadow);
+  font-size: var(--jte-font-size-sm);
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+.jte-toast-visible { opacity: 1; transform: translateY(0); }
+.jte-toast-leaving { opacity: 0; transform: translateY(8px); }
+
+.jte-toast-info    { border-left-color: var(--jte-accent); }
+.jte-toast-success { border-left-color: var(--jte-success); }
+.jte-toast-warn    { border-left-color: var(--jte-warn); }
+.jte-toast-error   { border-left-color: var(--jte-danger); }
+
+.jte-toast-icon { flex: 0 0 auto; line-height: 1.3; }
+.jte-toast-info    .jte-toast-icon { color: var(--jte-accent); }
+.jte-toast-success .jte-toast-icon { color: var(--jte-success); }
+.jte-toast-warn    .jte-toast-icon { color: var(--jte-warn); }
+.jte-toast-error   .jte-toast-icon { color: var(--jte-danger); }
+
+.jte-toast-message {
+  flex: 1 1 auto;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
+.jte-toast-close {
+  flex: 0 0 auto;
+  color: var(--jte-fg-muted);
+  font-size: var(--jte-font-size-sm);
+  padding: 0 2px;
+  line-height: 1;
+}
+.jte-toast-close:hover { color: var(--jte-fg); }
+
+/* ---------- Generic empty state ---------- */
+
+.jte-empty {
+  padding: var(--jte-space-7) var(--jte-space-6);
+  text-align: center;
+  color: var(--jte-fg-muted);
+  font-size: var(--jte-font-size);
+}
+
+/* ---------- Drop zone affordance (from loader.js) ---------- */
+
+.jte-drop-active {
+  outline: 2px dashed var(--jte-accent);
+  outline-offset: -4px;
+}
+
+/* ---------- Shared detail-pane headings ---------- */
+
+.jte-object-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--jte-space-4);
+  margin-bottom: var(--jte-space-4);
+  flex-wrap: wrap;
+}
+
+.jte-pane-title {
+  font-size: var(--jte-font-size-lg);
+  font-weight: 600;
+}
+
+.jte-pane-subtitle {
+  color: var(--jte-fg-muted);
+  font-size: var(--jte-font-size-sm);
+}
+
+.jte-object-header .jte-btn { margin-left: auto; }

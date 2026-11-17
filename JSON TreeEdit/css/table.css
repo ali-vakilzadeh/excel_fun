@@ -1,0 +1,308 @@
+/* css/table.css — Detail pane: scalar editor, property list, grid */
+
+/* ---------- Detail pane container ---------- */
+
+.jte-detail-pane {
+  font-size: var(--jte-font-size);
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.jte-detail-empty .jte-empty {
+  padding: var(--jte-space-7);
+}
+
+/* ---------- Scalar editor ---------- */
+
+.jte-scalar-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--jte-space-5);
+  max-width: 640px;
+}
+
+.jte-field-row {
+  display: flex;
+  align-items: center;
+  gap: var(--jte-space-4);
+}
+
+.jte-field-row-grow {
+  align-items: stretch;
+}
+
+.jte-field-label {
+  display: flex;
+  align-items: center;
+  gap: var(--jte-space-3);
+  flex: 1;
+  min-width: 0;
+  font-size: var(--jte-font-size-sm);
+  color: var(--jte-fg-muted);
+}
+
+.jte-field-row > .jte-field-label:first-child {
+  flex: 0 0 80px;
+}
+
+.jte-field-row-grow .jte-field-label {
+  align-items: stretch; /* Make the input fill vertically too if needed */
+}
+
+
+.jte-type-select,
+.jte-bool-select {
+  min-width: 120px;
+}
+
+.jte-value-input {
+  flex: 1 1 auto;     
+  width: 100%;        
+  min-width: 200px;   
+  font-family: var(--jte-font-mono);
+  padding: 6px 8px;   
+}
+
+.jte-value-input.jte-value-null {
+  font-style: italic;
+  color: var(--jte-fg-muted);
+}
+
+.jte-null-note {
+  font-style: italic;
+  color: var(--jte-fg-muted);
+  margin-left: var(--jte-space-3);
+}
+
+.jte-input-invalid {
+  border-color: var(--jte-danger) !important;
+  background: #fff5f5 !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .jte-input-invalid { background: rgba(217,83,79,0.15) !important; }
+}
+
+/* ---------- Object / property list ---------- */
+
+.jte-object-view {
+  max-width: 100%;
+}
+
+.jte-prop-table {
+  width: 100%;
+  border: 1px solid var(--jte-border);
+  border-radius: var(--jte-radius);
+  overflow: hidden;
+  background: var(--jte-bg);
+}
+
+.jte-prop-row:nth-child(even) {
+  background: var(--jte-bg-muted);
+}
+
+.jte-prop-key,
+.jte-prop-value,
+.jte-prop-actions {
+  padding: var(--jte-space-2) var(--jte-space-4);
+  border-bottom: 1px solid var(--jte-border);
+  vertical-align: middle;
+  font-size: var(--jte-font-size-sm);
+}
+
+.jte-prop-row:last-child .jte-prop-key,
+.jte-prop-row:last-child .jte-prop-value,
+.jte-prop-row:last-child .jte-prop-actions {
+  border-bottom: none;
+}
+
+.jte-prop-key {
+  width: 30%;
+  min-width: 140px;
+  font-family: var(--jte-font-mono);
+}
+
+.jte-prop-index {
+  color: var(--jte-fg-muted);
+  text-align: right;
+}
+
+.jte-key-input {
+  width: 100%;
+  border: 1px solid transparent;
+  background: transparent;
+  font-family: var(--jte-font-mono);
+  padding: 2px 4px;
+}
+.jte-key-input:hover  { border-color: var(--jte-border); }
+.jte-key-input:focus  { border-color: var(--jte-accent); background: var(--jte-bg); }
+
+.jte-prop-value {
+  width: auto;
+}
+
+.jte-value-inline {
+  width: 100%;
+  max-width: 480px;
+  border: 1px solid transparent;
+  background: transparent;
+  font-family: var(--jte-font-mono);
+  padding: 2px 4px;
+}
+.jte-value-inline:hover { border-color: var(--jte-border); }
+.jte-value-inline:focus { border-color: var(--jte-accent); background: var(--jte-bg); }
+
+.jte-prop-actions {
+  width: 3em;
+  text-align: center;
+}
+
+.jte-type-tag {
+  display: inline-block;
+  font-family: var(--jte-font-mono);
+  font-size: var(--jte-font-size-sm);
+  color: var(--jte-fg-muted);
+  background: var(--jte-bg-alt);
+  border: 1px solid var(--jte-border);
+  border-radius: var(--jte-radius-sm);
+  padding: 1px 6px;
+  margin-right: var(--jte-space-3);
+}
+
+.jte-prop-value .jte-btn {
+  vertical-align: middle;
+}
+
+/* ---------- Table grid ---------- */
+
+.jte-table-wrap {
+  overflow: auto;
+  max-height: calc(100vh - var(--jte-toolbar-height) - 140px);
+  border: 1px solid var(--jte-border);
+  border-radius: var(--jte-radius);
+}
+
+.jte-grid {
+  width: 100%;
+  font-size: var(--jte-font-size-sm);
+  background: var(--jte-bg);
+}
+
+.jte-grid th,
+.jte-grid td {
+  border-right: 1px solid var(--jte-border);
+  border-bottom: 1px solid var(--jte-border);
+  padding: 0;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.jte-grid th:last-child,
+.jte-grid td:last-child {
+  border-right: none;
+}
+
+.jte-grid thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--jte-bg-header);
+  font-weight: 600;
+  padding: var(--jte-space-2) var(--jte-space-4);
+  font-family: var(--jte-font-mono);
+  white-space: nowrap;
+  text-align: left;
+  border-bottom: 1px solid var(--jte-border-strong);
+}
+
+.jte-grid-index {
+  width: 3em;
+  text-align: right;
+  color: var(--jte-fg-muted);
+  background: var(--jte-bg-muted);
+  padding: var(--jte-space-2) var(--jte-space-3) !important;
+  font-family: var(--jte-font-mono);
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+.jte-grid thead .jte-grid-index {
+  z-index: 3;
+}
+
+.jte-grid-actions {
+  width: 2.4em;
+  text-align: center;
+  padding: var(--jte-space-1) !important;
+}
+
+.jte-grid tbody tr:nth-child(even) {
+  background: var(--jte-bg-muted);
+}
+
+.jte-grid tbody tr:hover {
+  background: var(--jte-bg-hover);
+}
+
+.jte-grid-cell {
+  padding: 0 !important;
+  min-width: 80px;
+}
+
+.jte-cell-input {
+  width: 100%;
+  min-width: 60px;
+  padding: var(--jte-space-2) var(--jte-space-3);
+  border: 1px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--jte-font-mono);
+  font-size: var(--jte-font-size-sm);
+}
+
+.jte-cell-input:hover { border-color: var(--jte-border); }
+
+.jte-cell-input:focus {
+  border-color: var(--jte-accent);
+  background: var(--jte-bg);
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--jte-accent);
+}
+
+.jte-cell-nested {
+  padding: var(--jte-space-2) var(--jte-space-3) !important;
+  white-space: nowrap;
+  background: var(--jte-bg-alt);
+}
+
+.jte-cell-input.jte-value-null,
+.jte-cell-input.jte-value-missing {
+  font-style: italic;
+  color: var(--jte-fg-dim);
+}
+
+.jte-value-missing::placeholder {
+  color: var(--jte-fg-dim);
+}
+
+/* ---------- Responsive fallback ---------- */
+
+@media (max-width: 720px) {
+  #app {
+    grid-template-columns: 1fr;
+    grid-template-rows: 40vh var(--jte-splitter-width) 1fr;
+  }
+  #splitter {
+    cursor: row-resize;
+    width: 100%;
+    height: var(--jte-splitter-width);
+  }
+  #splitter[aria-orientation="vertical"] {
+    cursor: row-resize;
+  }
+  .jte-toolbar-search { margin-left: 0; width: 100%; }
+  .jte-search-input { flex: 1; width: auto; }
+  .jte-toolbar { height: auto; padding: var(--jte-space-3) var(--jte-space-4); }
+  #app { height: auto; min-height: 0; }
+}

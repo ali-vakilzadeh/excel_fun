@@ -1,0 +1,81 @@
+/* css/theme.css — Design tokens */
+:root {
+  /* Palette */
+  --jte-accent: #4a90e2;
+  --jte-accent-hover: #3a7bc8;
+  --jte-accent-fg: #ffffff;
+  --jte-danger: #d9534f;
+  --jte-danger-hover: #c9302c;
+  --jte-success: #2e8b57;
+  --jte-warn: #d18b00;
+
+  /* Surfaces */
+  --jte-bg: #ffffff;
+  --jte-bg-alt: #f7f7f7;
+  --jte-bg-muted: #fafafa;
+  --jte-bg-hover: #eef4fb;
+  --jte-bg-selected: #d6e8fb;
+  --jte-bg-header: #f0f0f0;
+
+  /* Borders */
+  --jte-border: #dcdcdc;
+  --jte-border-strong: #b8b8b8;
+
+  /* Text */
+  --jte-fg: #1a1a1a;
+  --jte-fg-muted: #666;
+  --jte-fg-dim: #999;
+  --jte-fg-inverse: #ffffff;
+
+  /* Typography */
+  --jte-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --jte-font-size-sm: 12px;
+  --jte-font-size: 14px;
+  --jte-font-size-lg: 15px;
+
+  /* Spacing */
+  --jte-space-1: 2px;
+  --jte-space-2: 4px;
+  --jte-space-3: 6px;
+  --jte-space-4: 8px;
+  --jte-space-5: 12px;
+  --jte-space-6: 16px;
+  --jte-space-7: 24px;
+
+  /* Radii and shadows */
+  --jte-radius: 4px;
+  --jte-radius-sm: 2px;
+  --jte-shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --jte-shadow: 0 2px 8px rgba(0,0,0,0.12);
+
+  /* Layout */
+  --jte-toolbar-height: 52px;
+  --jte-splitter-width: 6px;
+  --jte-row-height: 24px;
+}
+
+/* Dark mode: flip surfaces and text, keep accent */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --jte-bg: #1e1e1e;
+    --jte-bg-alt: #252526;
+    --jte-bg-muted: #2a2a2b;
+    --jte-bg-hover: #2f3a44;
+    --jte-bg-selected: #264564;
+    --jte-bg-header: #2d2d2e;
+
+    --jte-border: #3a3a3a;
+    --jte-border-strong: #555;
+
+    --jte-fg: #e6e6e6;
+    --jte-fg-muted: #a8a8a8;
+    --jte-fg-dim: #777;
+
+    --jte-bg: #1e1e1e;
+  }
+  input, select, textarea {
+    background: var(--jte-bg-muted);
+    border-color: var(--jte-border);
+    color: var(--jte-fg);
+  }
+}
